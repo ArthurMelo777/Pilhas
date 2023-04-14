@@ -10,29 +10,29 @@ public class EPilhaPretaVazia : Exception {
 
 class PilhaRubroNegra {
     // Atributos da classe
-    private int tamanho = 10;
-    private object[] vetor = new object[10];
-    private int tVermelha = -1, tPreta = 10;
+    private int tamanho = 1;
+    private object[] vetor = new object[1];
+    private int tVermelha = -1, tPreta = 1;
 
-    // Metodos Pilha Rubro Negra
+    // Metodos Pilha Rubro Negra;
     public void Dobrar () {
-        this.tamanho = this.tamanho*2;
-        object[] novoVetor = new object[this.tamanho];
-        int i;
+        object[] novoVetor = new object[tamanho*2];
+        int i, j = 0;
+        bool x = true;
 
-        // Iteração para duplicação da pilha vermelha
-        for (i = 0; i < this.tamanhoVermelha(); i++) {
-            novoVetor[i] = vetor[i];
-        }
-
-        // Iteração para duplicação da pilha preta
-        int j = this.tamanhoVermelha();
-        for (i = this.tamanho - this.tamanhoPreta(); i < this.tamanho; i++) {
-            novoVetor[i] = vetor[j];
+        // Iteração para duplicação da pilha
+        for (i = 0; i < tamanho; i++) {
+            if (i > tVermelha && x) {
+                j = tamanho + tPreta;
+                x = false;
+            }
+            novoVetor[j] = vetor[i];
             j++;
         }
-        this.tPreta = this.tamanho - this.tamanhoPreta();
+        
+        tPreta += tamanho;
 
+        tamanho = tamanho*2;
         vetor = novoVetor;
     }
 
@@ -51,7 +51,7 @@ class PilhaRubroNegra {
 
     public object PopVermelho () {
         if (tVermelha == -1) {
-            throw new EPilhaVazia();
+            throw new EPilhaVermelhaVazia();
         }
         else {
             object elemento = vetor[tVermelha];
@@ -103,33 +103,11 @@ class PilhaRubroNegra {
         }
     }
     
+    // Exibir pilha
+
     public void exibirPilha () {
         for (int i = 0; i < tamanho; i++) {
             Console.Write($"[{vetor[i]}] ");
         }
-    }
-}
-
-class Programa {
-
-    public static void Main (string[] args) {
-        PilhaRubroNegra p = new PilhaRubroNegra();
-        p.PushVermelho(5);
-        p.PushPreto(6);
-        p.PushVermelho(4);
-        p.PushPreto(7);
-        p.PushVermelho(3);
-        p.PushPreto(8);
-        p.PushVermelho(2);
-        p.PushPreto(9);
-        p.PushVermelho(1);
-        p.PushPreto(10);
-        p.exibirPilha();
-        Console.WriteLine();
-        Console.WriteLine(p.PopPreto());
-        Console.WriteLine(p.PopVermelho());
-        Console.WriteLine(p.TopPreto());
-        Console.WriteLine(p.TopVermelho());
-        p.exibirPilha();
     }
 }
