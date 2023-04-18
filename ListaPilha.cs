@@ -79,8 +79,8 @@ class ListaLigadaPilha {
     }
 }
 
-class Teste {
-    public static void Main (string[] args) {
+class T {
+    public static void x (string[] args) {
         ListaLigadaPilha p = new ListaLigadaPilha();
         p.push('a');
         p.push('r');
